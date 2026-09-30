@@ -1,0 +1,95 @@
+######################################################################
+# Right, Springman, Wibbels - Replication Files 
+######################################################################
+
+Please address questions to Lucy Right (Lucille.right@yale.edu)
+
+
+# CODE ##############################################################################
+
+rsw_replication_code.R : code producing all analysis, tables, and figures in the main text and appendix
+
+* input: rsw_dataset.csv
+* output: gsc_results.rdata; all tables and figures
+
+# DATA ##############################################################################
+
+rsw_dataset.csv : dyadic dataset with outcome variables, treatment variables, and covariates merged
+gsc_results.rdata : results of running the generalized synthetic control models (output of rsw_replication_code.R)
+
+# VARIABLES AND DATA SOURCES ########################################################
+
+-- Independent Variable -------------------------------------------------------------
+# dir.sig.event.l : equal to 1 if recipient passed direct and significant NGO law prior to that year, from original data
+
+-- Dependent Variable ---------------------------------------------------------------
+# tot.log : total bilateral aid commitments from donor to recipient, transformed using log(y+1), from OECD CRS database
+# dem.log : bilateral aid commitments in democracy sector [see coding below], transformed using log(y+1), from OECD CRS database
+# econ.log : bilateral aid commitments in economic sector [see coding below], transformed using log(y+1), from OECD CRS database
+
+# dem.log.v2 : alternative coding of bilateral aid commitments in democracy sector [see coding below]
+# econ.log.v2 : alternative coding of bilateral aid commitments in democracy sector [see coding below]
+
+-- Covariates ------------------------------------------------------------------------
+# tradeflow.ln.l : logged bilateral trade flows in 1000 current USD (lagged), from CEPII
+# r_pop.ln.l - logged recipient country population (lagged), from WBDI
+# r_gdppc.ln.l - logged recipient country GDP per capita (lagged), from WBDI
+# v2x_libdem.l - liberal democracy index for recipient country (lagged), from VDEM 
+# human_rights.l - human rights score for recipient country (lagged), from Fariss (2014)
+# v2csreprss.l - measure of gov't attempts to repress civil society in the recipient country (lagged), from VDEM
+# civil_war.l - indicator equal to 1 if recipient country is engaged in a civil war (lagged), from Gleditsch et al. (2002)
+# dis_death.ihs.l - IHS-transformed count of deaths from natural disasters in recipient country (lagged), from Delforge et al. (2023)
+# v2xel_frefair.l - Clean Elections Index value in recipient country (lagged), from VDEM
+# v2x_freexp_altinf.l - Freedom of Expression and Alternative Sources of Information Index in recipient country (lagged), from VDEM
+# v2meharjrn.l - Harassment of Journalists Index in recipient country (lagged), from VDEM
+# oppseat.l - Share of opposition-held legislative seats in recipient country (lagged), from WB Database of Political Institutions (Scartascini et al, 2021)
+# cpj.ihs.l - IHS-transformed count of number of journalists murdered or imprisoned (lagged), from Committee to Protect Journalists
+
+# CODING OF AID SECTORS ################################################################
+
+-- Our Coding Method --------------------------------------------------------------------
+We code project-level data based on the project Purpose Code using the following scheme :
+
+econ = c(11110, 11120, 11130, 11182, 11220, 11230, 11240, 11250, 11320, 11330, 11420, 11430, 12110, 12181, 12182, 12191, 12220, 12230, 
+         12240, 12250, 12261, 12262, 12263, 12281, 12310, 12320, 12330, 12340, 12350, 12382, 13010, 13020, 13030, 13040, 13081, 14010, 
+         14015, 14020, 14021, 14022, 14030, 14031, 14032, 14040, 14050, 14081, 15110, 15111, 15112, 15114, 15125, 15142, 15240, 15250, 
+         16010, 16020, 16030, 16040, 16050, 16061, 16062, 16063, 16064, 21010, 21020, 21030, 21040, 21050, 21061, 21081, 22010, 22020, 
+         22030, 22040, 23110, 23181, 23182, 23183, 23210, 23220, 23230, 23231, 23232, 23240, 23250, 23260, 23270, 23310, 23320, 23330, 
+         23340, 23350, 23360, 23410, 23510, 23610, 23620, 23630, 23631, 23640, 23641, 23642, 24010, 24020, 24030, 24040, 24050, 24081, 
+         25010, 25020, 25030, 25040, 31110, 31120, 31130, 31140, 31150, 31161, 31162, 31163, 31164, 31165, 31166, 31181, 31182, 31191, 
+         31192, 31193, 31194, 31195, 31210, 31220, 31261, 31281, 31282, 31291, 31310, 31320, 31381, 31382, 31391, 32110, 32120, 32130, 
+         32140, 32161, 32162, 32163, 32164, 32165, 32166, 32167, 32168, 32169, 32170, 32171, 32172, 32173, 32174, 32182, 32210, 32220, 
+         32261, 32262, 32263, 32264, 32265, 32266, 32267, 32268, 32310, 33110, 33120, 33130, 33140, 33150, 33181, 33210, 41010, 41020, 
+         41030, 41040, 41081, 41082, 43030, 43040, 43050, 43060, 43071, 43072, 43073, 51010, 52010, 53030, 53040, 60020, 60030, 60040, 
+         60061, 60062, 60063, 72010, 72040, 72050, 73010, 74020)
+dem = c(15113, 15130, 15150, 15151, 15152, 15153, 15160, 15170, 15180, 15190, 15210, 15220, 15261, 16070, 16080)
+
+-- Alternative Coding for Robustness -----------------------------------------------------
+
+To ensure robustness of our results, we also use an alternative coding scheme common in literature on democracy aid :
+
+econ_rob = c(11110, 11120, 11130, 11182, 11220, 11230, 11240, 11250, 11320, 11330, 11420, 11430, 12110, 12181, 12182, 12191, 12220, 12230, 
+             12240, 12250, 12261, 12262, 12263, 12281, 12310, 12320, 12330, 12340, 12350, 12382, 13010, 13020, 13030, 13040, 13081, 14010, 
+             14015, 14020, 14021, 14022, 14030, 14031, 14032, 14040, 14050, 14081, 16010, 16020, 16030, 16040, 16050, 16061, 16062, 16063, 
+             16064, 16070, 16080, 21010, 21020, 21030, 21040, 21050, 21061, 21081, 22010, 22020, 22030, 22040, 23110, 23181, 23182, 23183, 
+             23210, 23220, 23230, 23231, 23232, 23240, 23250, 23260, 23270, 23310, 23320, 23330, 23340, 23350, 23360, 23410, 23510, 23610, 
+             23620, 23630, 23631, 23640, 23641, 23642, 24010, 24020, 24030, 24040, 24050, 24081, 25010, 25020, 25030, 25040, 31110, 31120, 
+             31130, 31140, 31150, 31161, 31162, 31163, 31164, 31165, 31166, 31181, 31182, 31191, 31192, 31193, 31194, 31195, 31210, 31220, 
+             31261, 31281, 31282, 31291, 31310, 31320, 31381, 31382, 31391, 32110, 32120, 32130, 32140, 32161, 32162, 32163, 32164, 32165, 
+             32166, 32167, 32168, 32169, 32170, 32171, 32172, 32173, 32174, 32182, 32210, 32220, 32261, 32262, 32263, 32264, 32265, 32266, 
+             32267, 32268, 32310, 33110, 33120, 33130, 33140, 33150, 33181, 33210, 41010, 41020, 41030, 41040, 41081, 41082, 43010, 43030, 
+             43040, 43050, 43060, 43071, 43072, 43073, 43081, 43082, 51010, 52010, 53030, 53040, 60010, 60020, 60030, 60040, 60061, 60062, 
+             60063, 72010, 72040, 72050, 73010, 74020, 91010, 93010, 99810, 99820)
+
+dem_rob = c(15110, 15111, 15112, 15113, 15114, 15125, 15130, 15142, 15150, 15151, 15152, 15153, 15160, 15170, 15180, 15190, 15210, 15220,
+            15230, 15240, 15250, 15261)
+
+
+
+
+
+
+
+
+
+
