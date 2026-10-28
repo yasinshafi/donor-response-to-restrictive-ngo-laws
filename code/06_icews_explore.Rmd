@@ -1,0 +1,291 @@
+---
+title: "ICEWS exploration: two-mode ties, weights, change, and cross-layer triangles"
+author: "Yasin Shafi"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.width = 9, fig.height = 5)
+knitr::opts_knit$set(root.dir = normalizePath(".."))   # repo root (this file lives in code/)
+```
+
+```{r packages}
+library(tidyverse)
+library(data.table)
+library(igraph)
+```
+
+**Purpose.** This is exploratory. ICEWS is a noisy, media-based stand-in for the
+recipient-to-recipient and patron layers. AidData is the likely source for the main
+analysis. These checks preview the network concepts the extension will need:
+
+- two-mode ties and edge weights
+- change in ties over time
+- triangles that close across layers
+
+**Inputs.**
+
+- `data/icews_dyad_year.csv`, written by `code/05_icews_aggregate.R`
+- `output/network_grid.rds`, the CRS donor × recipient aid network written by `code/02_build_network.R`
+
+## 1. Decisions
+
+```{r params}
+SCOPE      <- "state"            # "state": government-to-government events; "all": any actors
+PATRONS    <- c("CHN", "RUS", "IND", "SAU", "ARE", "QAT", "TUR", "IRN")   # alternative patrons
+SHARE_TIE  <- 0.05               # recipient-recipient tie: partner gets >= 5% of j's cooperation
+YEARS      <- 2005:2019
+```
+
+- **Events.** Only interstate events between state actors are counted (`SCOPE`).
+- **Cooperation.** Cooperation means CAMEO verbal plus material cooperation (roots 01–08).
+  Material cooperation alone (06–08) is much sparser, so it is shown only as a check.
+- **Weights.** Raw counts follow media coverage, which varies by country and year (see
+  section 2). Weights are therefore **shares**: partner *k*'s share of recipient *j*'s total
+  interstate cooperation in year *t*.
+- **Patrons.** `PATRONS` is a set of non-DAC alternative patrons. Change it to test the
+  "regional power" version of the idea. Some patrons (China, India, Turkey, Iran, Saudi
+  Arabia) are also aid recipients in the replication data. They appear as nodes in the
+  recipient layer, and their own patron share counts only the other patrons.
+
+```{r load}
+ice <- fread("data/icews_dyad_year.csv")[scope == SCOPE & year %in% YEARS] %>%
+  as_tibble() %>% mutate(coop = n_vcoop + n_mcoop)
+grid <- readRDS("output/network_grid.rds")         # CRS donor x recipient x year
+donors  <- sort(unique(grid$d_iso))
+recips  <- sort(unique(grid$r_iso))
+r_info  <- grid %>% group_by(r_iso) %>%
+  summarize(region = first(region), first_law = suppressWarnings(min(first_law, na.rm = TRUE))) %>%
+  mutate(first_law = ifelse(is.finite(first_law), first_law, NA))
+```
+
+## 2. Coverage changes over time
+
+```{r coverage, fig.height = 3.5}
+ice %>% group_by(year) %>%
+  summarize(`All interstate events` = sum(n_all), Cooperation = sum(coop),
+            `Material cooperation` = sum(n_mcoop)) %>%
+  pivot_longer(-year) %>%
+  ggplot(aes(year, value)) + geom_line(linewidth = 1, color = "#00796B") +
+  facet_wrap(~ name, scales = "free_y") +
+  labs(x = NULL, y = "Events (state actors)", title = "ICEWS event volume by year") +
+  theme_minimal()
+```
+
+Event volume falls by roughly 40% between 2005 and 2011, a change in news coverage rather
+than in diplomacy. That is why raw counts are not used as edge weights.
+
+## 3. Two-mode layer: donor → recipient
+
+Is the ICEWS donor → recipient cooperation layer related to the CRS aid ties that define the
+replication network? This is a validity check on ICEWS as a tie measure.
+
+```{r twomode}
+two <- grid %>%
+  select(d_iso, r_iso, year, tie_dem, commit_dem, DO) %>%
+  left_join(ice %>% select(d_iso = src_iso, r_iso = tgt_iso, year, coop, n_mcoop),
+            by = c("d_iso", "r_iso", "year")) %>%
+  mutate(across(c(coop, n_mcoop), ~ replace_na(.x, 0L)),
+         commit_dem = pmax(commit_dem, 0))   # a few net-negative commitments (de-obligations) set to 0
+# EU institutions (EUI) are not a country in ICEWS, so their ICEWS ties are always 0
+
+two %>% filter(d_iso != "EUI") %>%
+  group_by(`CRS democracy tie` = ifelse(tie_dem == 1, "yes", "no")) %>%
+  summarize(dyad_years = n(), `share with any ICEWS cooperation` = mean(coop > 0),
+            `mean ICEWS cooperation events` = mean(coop)) %>% knitr::kable(digits = 2)
+
+two %>% filter(d_iso != "EUI", tie_dem == 1) %>%
+  ggplot(aes(log1p(coop), log1p(commit_dem))) +
+  geom_point(alpha = 0.05) + geom_smooth(method = "lm", color = "#C0392B") +
+  labs(x = "log(1 + ICEWS cooperation events, donor -> recipient)",
+       y = "log(1 + democracy-aid commitment)",
+       title = "Edge weights in two layers of the same donor-recipient dyads") +
+  theme_minimal()
+
+with(filter(two, d_iso != "EUI"), cor(log1p(coop), log1p(commit_dem)))   # correlation of the two edge weights
+```
+
+## 4. One-mode layer: recipient – recipient cooperation
+
+```{r rr_layer}
+# total interstate cooperation of each recipient (with any partner), both directions
+tot <- bind_rows(ice %>% select(iso = src_iso, year, coop),
+                 ice %>% select(iso = tgt_iso, year, coop)) %>%
+  group_by(iso, year) %>% summarize(tot_coop = sum(coop), .groups = "drop")
+
+# undirected dyadic cooperation (sum of both directions)
+und <- ice %>%
+  mutate(a = pmin(src_iso, tgt_iso), b = pmax(src_iso, tgt_iso)) %>%
+  group_by(a, b, year) %>% summarize(coop = sum(coop), mcoop = sum(n_mcoop), .groups = "drop")
+
+# recipient-recipient ties: k's share of j's cooperation, and j's share of k's
+rr <- und %>% filter(a %in% recips, b %in% recips) %>%
+  left_join(tot, by = c("a" = "iso", "year")) %>% rename(tot_a = tot_coop) %>%
+  left_join(tot, by = c("b" = "iso", "year")) %>% rename(tot_b = tot_coop) %>%
+  mutate(share_ab = coop / tot_a, share_ba = coop / tot_b,
+         w   = pmax(share_ab, share_ba),          # edge weight: importance to either side
+         tie = as.integer(w >= SHARE_TIE))
+
+rr %>% group_by(year) %>%
+  summarize(dyads_with_events = n(), ties = sum(tie),
+            density = ties / choose(length(recips), 2)) %>% knitr::kable(digits = 3)
+
+ggplot(filter(rr, coop > 0), aes(w)) + geom_histogram(bins = 50, fill = "#00796B") +
+  geom_vline(xintercept = SHARE_TIE, color = "#C0392B") + scale_x_log10() +
+  labs(x = "Edge weight: max share of either country's cooperation (log scale)",
+       y = "Dyad-years", title = "Weighted recipient-recipient ties; line = tie threshold") +
+  theme_minimal()
+```
+
+```{r rr_plot, fig.height = 7}
+y_plot <- 2016
+e <- rr %>% filter(year == y_plot, tie == 1)
+g <- graph_from_data_frame(e %>% select(a, b, w), directed = FALSE,
+                           vertices = tibble(name = recips) %>% left_join(r_info, by = c("name" = "r_iso")))
+g <- delete_vertices(g, degree(g) == 0)
+V(g)$col <- ifelse(!is.na(V(g)$first_law) & V(g)$first_law < y_plot, "#C0392B", "grey70")
+set.seed(508)
+plot(g, layout = layout_with_fr(g), vertex.size = 3 + sqrt(strength(g, weights = E(g)$w)) * 6,
+     vertex.color = V(g)$col, vertex.frame.color = NA, vertex.label.cex = 0.5,
+     vertex.label.color = "grey20", edge.width = E(g)$w * 8, edge.color = adjustcolor("grey40", 0.4),
+     main = paste0("Recipient-recipient cooperation ties, ", y_plot))
+legend("bottomleft", bty = "n", cex = 0.8, pch = 19, col = c("#C0392B", "grey70"),
+       legend = c("NGO law passed", "No law yet"), title = "Node size = weighted degree")
+```
+
+## 5. Patron layer
+
+Each recipient's **patron share** is the share of its interstate cooperation that is with
+the `PATRONS` set. If restrictive laws go with a pivot toward alternative patrons, the
+share should rise around passage.
+
+```{r patron}
+pat <- und %>%
+  mutate(r = case_when(a %in% recips & b %in% PATRONS ~ a,
+                       b %in% recips & a %in% PATRONS ~ b)) %>%
+  filter(!is.na(r)) %>% group_by(r_iso = r, year) %>%
+  summarize(patron_coop = sum(coop), .groups = "drop") %>%
+  right_join(tot %>% filter(iso %in% recips) %>% rename(r_iso = iso), by = c("r_iso", "year")) %>%
+  mutate(patron_coop = replace_na(patron_coop, 0), patron_share = patron_coop / tot_coop) %>%
+  left_join(r_info, by = "r_iso")
+
+pat %>% filter(!is.na(first_law)) %>%
+  mutate(t = year - first_law) %>% filter(between(t, -5, 5)) %>%
+  group_by(t) %>% summarize(mean = mean(patron_share), se = sd(patron_share) / sqrt(n()), n = n()) %>%
+  ggplot(aes(t, mean)) + geom_vline(xintercept = 0, color = "grey70") +
+  geom_ribbon(aes(ymin = mean - 1.96 * se, ymax = mean + 1.96 * se), alpha = 0.2) +
+  geom_line(color = "#00796B", linewidth = 1) +
+  labs(x = "Years relative to first NGO law", y = "Patron share of cooperation",
+       title = "Recipients' cooperation with alternative patrons around NGO-law passage",
+       subtitle = "Raw event-time means; the set of recipients changes across event time") +
+  theme_minimal()
+```
+
+## 6. Change: tie persistence
+
+The same question for both layers: if a tie exists in *t−1*, how likely is it to exist in *t*,
+and how likely is a new tie to form?
+
+```{r persistence}
+persist <- function(df, id_cols, tie_col) {
+  df %>% arrange(year) %>% group_by(across(all_of(id_cols))) %>%
+    mutate(lag_tie = lag(.data[[tie_col]]), lag_year = lag(year)) %>% ungroup() %>%
+    filter(!is.na(lag_tie), year == lag_year + 1) %>%
+    summarize(`P(tie | tie at t-1)`    = mean(.data[[tie_col]][lag_tie == 1]),
+              `P(tie | no tie at t-1)` = mean(.data[[tie_col]][lag_tie == 0]))
+}
+# complete the recipient-recipient panel so absent dyads are observed zeros
+rr_full <- expand_grid(a = recips, b = recips, year = YEARS) %>% filter(a < b) %>%
+  left_join(rr %>% select(a, b, year, tie), by = c("a", "b", "year")) %>%
+  mutate(tie = replace_na(tie, 0L))
+
+bind_rows(
+  `CRS democracy aid (donor -> recipient)` = persist(grid, c("d_iso", "r_iso"), "tie_dem"),
+  `CRS economic aid (donor -> recipient)`  = persist(grid, c("d_iso", "r_iso"), "tie_econ"),
+  `ICEWS cooperation (recipient - recipient)` = persist(rr_full, c("a", "b"), "tie"),
+  .id = "Layer") %>% knitr::kable(digits = 3)
+```
+
+Aid ties are much stickier than ICEWS cooperation ties. Any temporal model of the aid
+layer needs a persistence (stability) term; otherwise other terms absorb that inertia.
+
+## 7. Cross-layer triangles
+
+Two layers share the recipients: the **aid layer** (donor *i* → recipient *j*, CRS
+democracy aid) and the **cooperation layer** (recipient *j* — recipient *k*, ICEWS).
+
+- **Closed triangle:** *i* → *j*, *j* — *k*, and *i* → *k*.
+- **Cross-layer closure:** the share of *j*'s cooperation partners that *i* also funds,
+  compared with *i*'s overall funding density. A ratio above 1 means donors fund clusters of
+  recipients that cooperate with each other.
+
+```{r triangles}
+rr_ties <- rr %>% filter(tie == 1) %>% select(a, b, year)
+rr_sym  <- bind_rows(rr_ties %>% rename(j = a, k = b), rr_ties %>% rename(j = b, k = a))
+aid     <- grid %>% filter(tie_dem == 1) %>% select(i = d_iso, j = r_iso, year)
+
+closure <- aid %>%                                   # i -> j
+  inner_join(rr_sym, by = c("j", "year"), relationship = "many-to-many") %>%   # j - k
+  left_join(aid %>% rename(k = j) %>% mutate(i_k = 1L), by = c("i", "k", "year")) %>%
+  mutate(i_k = replace_na(i_k, 0L)) %>%
+  group_by(i, year) %>% summarize(closed_share = mean(i_k), two_paths = n(), .groups = "drop") %>%
+  left_join(grid %>% group_by(i = d_iso, year) %>% summarize(density = mean(tie_dem), .groups = "drop"),
+            by = c("i", "year")) %>%
+  mutate(ratio = closed_share / density)
+
+closure %>% group_by(year) %>%
+  summarize(`closed share` = weighted.mean(closed_share, two_paths),
+            `donor density` = mean(density), ratio = weighted.mean(ratio, two_paths)) %>%
+  knitr::kable(digits = 3)
+```
+
+### Patron embedding and DO donors' democracy ties after a law
+
+A descriptive check of the hypothesis. Among democracy-oriented donors' democracy-aid ties to
+recipients that have passed an NGO law, does the tie survive to *t* less often when, in
+*t−1*, the recipient was more embedded with patrons or had more cooperation partners that the
+donor also funds?
+
+This is a dyad-independent logit, **not** an ERGM. It only checks whether the signal exists
+before the network model is built.
+
+```{r patron_triangle}
+shared_partners <- aid %>% inner_join(rr_sym, by = c("j", "year"), relationship = "many-to-many") %>%
+  inner_join(aid %>% rename(k = j) %>% mutate(m = 1), by = c("i", "k", "year")) %>%
+  count(i, j, year, name = "shared_k")
+
+dat <- grid %>% arrange(year) %>% group_by(d_iso, r_iso) %>%
+  mutate(lag_tie = lag(tie_dem), lag_year = lag(year)) %>% ungroup() %>%
+  filter(lag_tie == 1, year == lag_year + 1, DO == 1, post_law == 1) %>%
+  left_join(pat %>% transmute(r_iso, year = year + 1, patron_share_l = patron_share),
+            by = c("r_iso", "year")) %>%
+  left_join(shared_partners %>% transmute(d_iso = i, r_iso = j, year = year + 1, shared_k_l = shared_k),
+            by = c("d_iso", "r_iso", "year")) %>%
+  mutate(shared_k_l = replace_na(shared_k_l, 0))
+
+fit <- glm(tie_dem ~ patron_share_l + log1p(shared_k_l) + factor(year), data = dat, family = binomial)
+summary(fit)$coefficients[2:3, , drop = FALSE] %>% knitr::kable(digits = 3)
+nrow(dat)
+```
+
+## 8. Takeaways for the extension
+
+- **Two-mode validity.** The section 3 table shows whether ICEWS donor → recipient
+  cooperation tracks CRS democracy-aid ties; if it does, ICEWS can stand in for alignment
+  layers where no aid data exist.
+- **Weights.** Use shares, not counts, for every event-based layer, because ICEWS volume
+  changes over time.
+- **Stability.** Aid ties are highly persistent. The (S)TERGM needs a stability or
+  persistence term, and formation and dissolution should be modelled separately.
+- **Cross-layer closure.** A ratio above 1 in section 7 means donors fund clusters of mutually
+  cooperating recipients. That supports including the cooperation layer as a dyadic
+  covariate (lagged shared partners) in the aid-layer model.
+- **Patron hypothesis.** The logit in section 7 is a first look at whether DO donors are
+  more likely to drop democracy ties to post-law recipients that are embedded with
+  alternative patrons. AidData's lending data should replace the ICEWS patron share in the
+  main analysis.

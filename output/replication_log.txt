@@ -1,0 +1,637 @@
+-- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+v dplyr     1.1.4     v readr     2.1.5
+v forcats   1.0.0     v stringr   1.5.1
+v ggplot2   3.4.4     v tibble    3.2.1
+v lubridate 1.9.3     v tidyr     1.3.1
+v purrr     1.0.2     
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+Please cite as: 
+
+ Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+
+
+Attaching package: 'gridExtra'
+
+The following object is masked from 'package:dplyr':
+
+    combine
+
+Loading required package: Matrix
+
+Attaching package: 'Matrix'
+
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack
+
+`summarise()` has grouped output by 'RecipientName'. You can override using the
+`.groups` argument.
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(year)`
+Joining with `by = join_by(dyad_id)`
+Joining with `by = join_by(d_iso, year)`
+`summarise()` has grouped output by 'd_iso'. You can override using the
+`.groups` argument.
+null device 
+          1 
+Warning message:
+In rm(df_r) : object 'df_r' not found
+`summarise()` has grouped output by 'RecipientName'. You can override using the
+`.groups` argument.
+Warning message:
+There were 4 warnings in `summarize()`.
+The first warning was:
+i In argument: `quartile.75 = round(max(quartile.75, na.rm = T), 3)`.
+i In group 1: `RecipientName = "Afghanistan"` and `year = 2005`.
+Caused by warning in `max()`:
+! no non-missing arguments to max; returning -Inf
+i Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings. 
+`summarise()` has grouped output by 'RecipientName'. You can override using the
+`.groups` argument.
+Joining with `by = join_by(RecipientName)`
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:14
+\begin{table}[!htbp] \centering 
+  \caption{Democracy-Oriented Relationships in Countries that Pass NGO Laws} 
+  \label{app:tab_relorient} 
+\scriptsize 
+\begin{tabular}{@{\extracolsep{3pt}} cccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Recipient Country & Passsage Year & 75th percentile & Donors in DO relationship \\ 
+\hline \\[-1.8ex] 
+Afghanistan & 2005 & NA &  \\ 
+Algeria & 2012 & 0.062 & CAN, GBR, NOR, NLD, ESP \\ 
+Angola & 2011 & 0.12 & ITA, SWE, NOR, NLD, IRL \\ 
+Azerbaijan & 2013 & 0.204 & USA, CAN, NOR, NLD, FIN \\ 
+Bangladesh & 2016 & 0.215 & ITA, SWE, NOR, FIN, DNK \\ 
+Belarus & 2013 & 0.483 & USA, CAN, NOR, NLD, DNK \\ 
+Bolivia & 2013 & 0.189 & USA, SWE, NOR, NLD, IRL \\ 
+Botswana & 2015 & 0.1 & CAN, SWE, NLD, FIN, KOR \\ 
+Brazil & 2019 & 0.138 & CAN, EUI, NLD, BEL, IRL \\ 
+Burundi & 2012 & 0.213 & SWE, NLD, ESP, DNK, IRL \\ 
+Cambodia & 2015 & 0.25 & SWE, EUI, NLD, FIN, DNK \\ 
+Cameroon & 2014 & 0.072 & CAN, SWE, NOR, FIN, BEL \\ 
+Chad & 2018 & 0.055 & ITA, DEU, CHE, AUS, IRL \\ 
+China (People's Republic of) & 2016 & 0.192 & USA, SWE, NLD, AUS, IRL \\ 
+Ecuador & 2008 & 0.1 & SWE, GBR, NOR, DEU, ESP \\ 
+Egypt & 2014 & 0.37 & SWE, NOR, NLD, ESP, IRL \\ 
+Eritrea & 2005 & NA &  \\ 
+Ethiopia & 2009 & 0.044 & CAN, SWE, DEU, ESP, DNK \\ 
+Honduras & 2013 & 0.324 & SWE, GBR, NOR, DNK, IRL \\ 
+India & 2010 & 0.182 & CAN, SWE, NLD, DNK, IRL \\ 
+Indonesia & 2013 & 0.121 & EUI, NOR, NLD, ESP, BEL \\ 
+Jordan & 2008 & 0.11 & CAN, NLD, ESP, DNK, IRL \\ 
+Kazakhstan & 2013 & 0.554 & SWE, NLD, FIN, DNK, IRL \\ 
+Kenya & 2014 & 0.209 & SWE, NOR, NLD, FIN, DNK \\ 
+Lao People's Democratic Republic & 2017 & 0.06 & EUI, GBR, DEU, BEL \\ 
+Libya & 2016 & 0.531 & USA, SWE, GBR, NLD, FIN \\ 
+Malawi & 2011 & 0.097 & SWE, EUI, NOR, FIN, DNK \\ 
+Mexico & 2013 & 0.167 & USA, CHE, NLD, ESP, IRL \\ 
+Myanmar & 2014 & 0.246 & USA, SWE, NLD, BEL, IRL \\ 
+Nepal & 2014 & 0.186 & SWE, NOR, ESP, DNK, IRL \\ 
+Nicaragua & 2012 & 0.195 & SWE, GBR, NOR, DNK, IRL \\ 
+Nigeria & 2014 & 0.18 & SWE, EUI, CHE, NLD, DNK \\ 
+Pakistan & 2013 & 0.171 & SWE, NOR, NLD, DNK, IRL \\ 
+Peru & 2006 & NA &  \\ 
+Philippines & 2018 & 0.403 & SWE, NOR, NLD, ESP, BEL \\ 
+Rwanda & 2012 & 0.081 & SWE, NOR, NLD, DNK, IRL \\ 
+Senegal & 2011 & 0.101 & SWE, EUI, GBR, NOR, DNK \\ 
+Sierra Leone & 2017 & 0.066 & CAN, SWE, EUI, NOR, IRL \\ 
+Somalia & 2010 & 0.129 & ITA, SWE, EUI, NOR, DEU \\ 
+South Sudan & 2014 & 0.101 & USA, SWE, NOR, CHE, NLD \\ 
+Sri Lanka & 2014 & 0.266 & USA, SWE, GBR, NOR, NLD \\ 
+Sudan & 2006 & NA &  \\ 
+Tajikistan & 2007 & 0.136 & USA, NOR, NLD, FIN, IRL \\ 
+Tanzania & 2016 & 0.082 & SWE, NOR, FRA, DNK, IRL \\ 
+Tunisia & 2015 & 0.542 & SWE, GBR, NOR, NLD, DNK \\ 
+Turkey & 2013 & 0.086 & SWE, EUI, NOR, NLD, IRL \\ 
+Turkmenistan & 2013 & 0.719 & SWE, NOR, FIN, DNK \\ 
+Uganda & 2009 & 0.126 & CAN, SWE, GBR, NOR, NLD \\ 
+Ukraine & 2017 & 0.447 & ITA, CAN, SWE, BEL, IRL \\ 
+Uzbekistan & 2016 & 0.049 & USA, CAN, SWE, EUI \\ 
+Venezuela & 2010 & 0.411 & USA, CAN, NOR, NLD \\ 
+Viet Nam & 2010 & 0.092 & CAN, SWE, NOR, ESP, DNK \\ 
+Zambia & 2009 & 0.067 & SWE, NOR, ESP, DNK, IRL \\ 
+Zimbabwe & 2019 & 0.262 & SWE, NOR, NLD, ESP, IRL \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:15
+\begin{table}[!htbp] \centering 
+  \caption{Democracy-Oriented Donors, 2008-2019} 
+  \label{app:tab_dnrorient} 
+\begin{tabular}{@{\extracolsep{5pt}} ccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Year & 75th percentile & Democracy-Oriented Donors \\ 
+\hline \\[-1.8ex] 
+2008 & 0.103 & AUS, FIN, IRL, NOR, SWE \\ 
+2009 & 0.107 & AUS, CAN, IRL, NOR, SWE \\ 
+2010 & 0.111 & CAN, DNK, NOR, SWE, USA \\ 
+2011 & 0.127 & CAN, DNK, NOR, SWE, USA \\ 
+2012 & 0.131 & DNK, NLD, NOR, SWE, USA \\ 
+2013 & 0.155 & DNK, NLD, NOR, SWE, USA \\ 
+2014 & 0.154 & DNK, NLD, NOR, SWE, USA \\ 
+2015 & 0.153 & DNK, ESP, NLD, NOR, SWE \\ 
+2016 & 0.174 & DNK, ESP, NLD, NOR, SWE \\ 
+2017 & 0.159 & DNK, ESP, NLD, NOR, SWE \\ 
+2018 & 0.158 & DNK, FIN, NLD, NOR, SWE \\ 
+2019 & 0.158 & AUS, DNK, NLD, NOR, SWE \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:15
+\begin{table}[!htbp] \centering 
+  \caption{Average Annual Aid Flows, by Donor-Orientation} 
+  \label{app:tab_summary} 
+\begin{tabular}{@{\extracolsep{5pt}} ccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Variable & n & Mean & n.1 & Mean.1 & n.2 & Mean.2 \\ 
+\hline \\[-1.8ex] 
+commit\_tot & $30,590$ & $30,918,686$ & $6,415$ & $27,241,722$ & $17,962$ & $31,621,106$ \\ 
+commit\_dem & $30,590$ & $3,270,585$ & $6,415$ & $4,754,706$ & $17,962$ & $3,163,551$ \\ 
+commit\_econ & $30,590$ & $26,014,640$ & $6,415$ & $21,458,386$ & $17,962$ & $26,610,361$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:16
+\begin{table}[!htbp] \centering 
+  \caption{Homogenous Response to NGO Law Enactment} 
+  \label{tab:event_response} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.057 & $-$0.127 & 0.055 \\ 
+  & (0.177) & (0.220) & (0.218) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & $\times$ & $\times$ & $\times$ \\ 
+Number of Dyads & 1064 & 1064 & 1064 \\ 
+Observations & 14,402 & 14,400 & 14,401 \\ 
+R$^{2}$ & 0.661 & 0.591 & 0.669 \\ 
+Adjusted R$^{2}$ & 0.633 & 0.557 & 0.643 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:16
+\begin{table}[!htbp] \centering 
+  \caption{Marginal Effect of Law Passage by Democracy Orientation} 
+  \label{tab:me} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.076 & $-$0.129 & 0.004 & 0.317$^{*}$ & 0.307 & 0.220 \\ 
+  & (0.389) & (0.548) & (0.454) & (0.165) & (0.226) & (0.207) \\ 
+  DO Relationship (DOR) & 0.041 & 1.890$^{***}$ & $-$0.740$^{***}$ &  &  &  \\ 
+  & (0.231) & (0.330) & (0.285) &  &  &  \\ 
+  NGO Law * DOR & $-$0.404 & $-$1.050$^{***}$ & $-$0.015 &  &  &  \\ 
+  & (0.258) & (0.274) & (0.282) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.372$^{**}$ & 0.507$^{**}$ & $-$0.585$^{***}$ \\ 
+  &  &  &  & (0.158) & (0.198) & (0.182) \\ 
+  NGO Law * DOD &  &  &  & $-$0.772$^{***}$ & $-$1.485$^{***}$ & $-$0.486$^{**}$ \\ 
+  &  &  &  & (0.185) & (0.225) & (0.241) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 1045 & 1045 & 1045 \\ 
+No. of Donor FE & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 12,785 & 12,783 & 12,784 & 12,312 & 12,310 & 12,311 \\ 
+R$^{2}$ & 0.176 & 0.203 & 0.200 & 0.705 & 0.620 & 0.706 \\ 
+Adjusted R$^{2}$ & 0.174 & 0.201 & 0.198 & 0.678 & 0.584 & 0.678 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:16
+\begin{table}[!htbp] \centering 
+  \caption{Staggered DID: Inclusion of Never-Treated Dyads} 
+  \label{tab:controls_dnr_orient} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.130 & 0.260 & 0.064 \\ 
+  & (0.144) & (0.226) & (0.176) \\ 
+  & & & \\ 
+ DOD & $-$0.609$^{***}$ & 0.138 & $-$0.526$^{***}$ \\ 
+  & (0.098) & (0.121) & (0.108) \\ 
+  & & & \\ 
+ NGO Law*DOD & $-$0.613$^{***}$ & $-$1.236$^{***}$ & $-$0.525$^{**}$ \\ 
+  & (0.180) & (0.203) & (0.227) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FEs & 2071 & 2071 & 2071 \\ 
+No. of Donor FEs & NA & NA & NA \\ 
+Observations & 24,377 & 24,373 & 24,376 \\ 
+R$^{2}$ & 0.714 & 0.629 & 0.720 \\ 
+Adjusted R$^{2}$ & 0.687 & 0.595 & 0.694 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:17
+\begin{table}[!htbp] \centering 
+  \caption{Inclusion of Covariates} 
+  \label{tab:me} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.087 & 0.037 & $-$0.045 & 0.320$^{*}$ & 0.282 & 0.147 \\ 
+  & (0.292) & (0.417) & (0.310) & (0.169) & (0.220) & (0.193) \\ 
+  DO Relationship (DOR) & 0.225 & 2.128$^{***}$ & $-$0.529$^{*}$ &  &  &  \\ 
+  & (0.250) & (0.366) & (0.308) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.345$^{**}$ & 0.455$^{**}$ & $-$0.601$^{***}$ \\ 
+  &  &  &  & (0.158) & (0.201) & (0.188) \\ 
+  Dyadic Trade & 0.729$^{***}$ & 1.079$^{***}$ & 0.825$^{***}$ & 0.095 & 0.073 & 0.117 \\ 
+  & (0.107) & (0.130) & (0.119) & (0.086) & (0.112) & (0.083) \\ 
+  Recipient Population & $-$0.136 & $-$0.558$^{***}$ & $-$0.151 & $-$3.284 & $-$5.161 & $-$0.463 \\ 
+  & (0.209) & (0.193) & (0.235) & (2.300) & (3.221) & (3.279) \\ 
+  Recipient GDP per capita & $-$2.063$^{***}$ & $-$2.334$^{***}$ & $-$2.578$^{***}$ & $-$1.820$^{**}$ & $-$1.892$^{*}$ & $-$1.153 \\ 
+  & (0.251) & (0.285) & (0.285) & (0.754) & (1.038) & (0.927) \\ 
+  Democracy & 0.285 & 0.250 & 1.332 & 0.022 & 1.539 & 0.009 \\ 
+  & (1.650) & (1.926) & (1.971) & (1.975) & (1.999) & (2.679) \\ 
+  Human Rights & $-$0.420 & $-$0.942$^{***}$ & $-$0.455 & $-$0.389$^{*}$ & $-$0.693$^{***}$ & $-$0.388 \\ 
+  & (0.274) & (0.333) & (0.338) & (0.213) & (0.254) & (0.252) \\ 
+  CSO Repression & 0.264 & 0.390$^{*}$ & 0.136 & 0.331$^{*}$ & 0.535$^{**}$ & 0.207 \\ 
+  & (0.231) & (0.231) & (0.275) & (0.191) & (0.223) & (0.227) \\ 
+  Civil War & 0.004 & $-$0.107 & $-$0.151 & 0.384$^{***}$ & 0.369 & 0.508$^{***}$ \\ 
+  & (0.265) & (0.399) & (0.311) & (0.138) & (0.237) & (0.181) \\ 
+  Disaster Deaths & 0.034 & 0.002 & 0.042 & 0.002 & $-$0.022 & 0.005 \\ 
+  & (0.028) & (0.040) & (0.031) & (0.013) & (0.016) & (0.013) \\ 
+  NGO Law * DOR & $-$0.538$^{**}$ & $-$1.241$^{***}$ & $-$0.266 &  &  &  \\ 
+  & (0.269) & (0.296) & (0.306) &  &  &  \\ 
+  NGO Law * DOD &  &  &  & $-$0.805$^{***}$ & $-$1.452$^{***}$ & $-$0.514$^{**}$ \\ 
+  &  &  &  & (0.193) & (0.230) & (0.242) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 954 & 954 & 954 \\ 
+No. of Donor FE & 18 & 18 & 18 & NA & NA & NA \\ 
+Observations & 11,551 & 11,549 & 11,550 & 11,001 & 10,999 & 11,000 \\ 
+R$^{2}$ & 0.327 & 0.314 & 0.352 & 0.720 & 0.645 & 0.723 \\ 
+Adjusted R$^{2}$ & 0.324 & 0.312 & 0.350 & 0.693 & 0.611 & 0.696 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:18
+\begin{table}[!htbp] \centering 
+  \caption{Alternative Coding of Democracy Aid} 
+  \label{tab:alt_coding} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.086 & 0.086 & 0.190 & 0.140 & 0.132 & 0.222 \\ 
+  & (0.385) & (0.524) & (0.437) & (0.172) & (0.232) & (0.180) \\ 
+  DO Relationship (DOR) & 0.038 & 1.445$^{***}$ & $-$0.694$^{**}$ &  &  &  \\ 
+  & (0.266) & (0.350) & (0.333) &  &  &  \\ 
+  NGO Law * DOR & $-$0.442$^{*}$ & $-$0.897$^{***}$ & $-$0.104 &  &  &  \\ 
+  & (0.254) & (0.261) & (0.299) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.522$^{***}$ & $-$0.147 & $-$0.673$^{***}$ \\ 
+  &  &  &  & (0.131) & (0.152) & (0.132) \\ 
+  NGO Law * DOD &  &  &  & $-$0.099 & $-$0.412$^{*}$ & 0.160 \\ 
+  &  &  &  & (0.165) & (0.219) & (0.186) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 1045 & 1045 & 1045 \\ 
+No. of Donor FE & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 12,785 & 12,784 & 12,784 & 12,312 & 12,311 & 12,311 \\ 
+R$^{2}$ & 0.176 & 0.173 & 0.201 & 0.704 & 0.629 & 0.716 \\ 
+Adjusted R$^{2}$ & 0.174 & 0.171 & 0.199 & 0.676 & 0.594 & 0.689 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:19
+\begin{table}[!htbp] \centering 
+  \caption{Continuous Measure of Democracy Orientation} 
+  \label{tab:cont} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.066 & 0.043 & $-$0.030 & 0.656$^{***}$ & 1.260$^{***}$ & 0.546$^{**}$ \\ 
+  & (0.399) & (0.556) & (0.454) & (0.203) & (0.311) & (0.271) \\ 
+  & & & & & & \\ 
+ DOR (continuous) & $-$0.026$^{***}$ & 0.019$^{*}$ & $-$0.053$^{***}$ &  &  &  \\ 
+  & (0.009) & (0.011) & (0.010) &  &  &  \\ 
+  & & & & & & \\ 
+ NGO Law * DOR (continuous) & $-$0.017$^{**}$ & $-$0.030$^{***}$ & $-$0.016$^{**}$ &  &  &  \\ 
+  & (0.008) & (0.008) & (0.007) &  &  &  \\ 
+  & & & & & & \\ 
+ DOD (continuous) &  &  &  & $-$0.089$^{***}$ & $-$0.025 & $-$0.088$^{***}$ \\ 
+  &  &  &  & (0.022) & (0.024) & (0.024) \\ 
+  & & & & & & \\ 
+ NGO Law * DOD (continuous) &  &  &  & $-$0.048$^{***}$ & $-$0.119$^{***}$ & $-$0.040$^{**}$ \\ 
+  &  &  &  & (0.014) & (0.019) & (0.019) \\ 
+  & & & & & & \\ 
+\hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 1045 & 1045 & 1045 \\ 
+No. of Donor FE & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 12,785 & 12,783 & 12,784 & 12,312 & 12,310 & 12,311 \\ 
+R$^{2}$ & 0.196 & 0.198 & 0.243 & 0.707 & 0.622 & 0.707 \\ 
+Adjusted R$^{2}$ & 0.194 & 0.196 & 0.241 & 0.679 & 0.586 & 0.679 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:20
+\begin{table}[!htbp] \centering 
+  \caption{Dropping Dyads with USA} 
+  \label{tab:usa} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.058 & $-$0.132 & $-$0.018 & 0.318$^{*}$ & 0.317 & 0.212 \\ 
+  & (0.400) & (0.566) & (0.467) & (0.169) & (0.232) & (0.211) \\ 
+  DO Relationship (DOR) & 0.103 & 1.942$^{***}$ & $-$0.694$^{**}$ &  &  &  \\ 
+  & (0.247) & (0.350) & (0.302) &  &  &  \\ 
+  NGO Law * DOR & $-$0.389 & $-$1.091$^{***}$ & 0.033 &  &  &  \\ 
+  & (0.270) & (0.288) & (0.296) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.447$^{**}$ & 0.531$^{**}$ & $-$0.679$^{***}$ \\ 
+  &  &  &  & (0.191) & (0.228) & (0.220) \\ 
+  NGO Law * DOD &  &  &  & $-$0.808$^{***}$ & $-$1.590$^{***}$ & $-$0.486$^{*}$ \\ 
+  &  &  &  & (0.202) & (0.243) & (0.262) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 990 & 990 & 990 \\ 
+No. of Donor FE & 18 & 18 & 18 & NA & NA & NA \\ 
+Observations & 12,090 & 12,088 & 12,089 & 11,664 & 11,662 & 11,663 \\ 
+R$^{2}$ & 0.140 & 0.153 & 0.168 & 0.692 & 0.596 & 0.694 \\ 
+Adjusted R$^{2}$ & 0.138 & 0.151 & 0.165 & 0.663 & 0.558 & 0.665 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:20
+\begin{table}[!htbp] \centering 
+  \caption{Non-Zero Aid Flows Only} 
+  \label{tab:het_positive} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.034 & $-$0.031 & 0.056 & 0.099 & 0.125 & 0.066 \\ 
+  & (0.237) & (0.174) & (0.236) & (0.097) & (0.113) & (0.107) \\ 
+  DO Relationship (DOR) & $-$0.235$^{*}$ & 0.392$^{***}$ & $-$0.332$^{**}$ &  &  &  \\ 
+  & (0.127) & (0.105) & (0.132) &  &  &  \\ 
+  NGO Law * DOR & $-$0.005 & $-$0.200 & 0.025 &  &  &  \\ 
+  & (0.135) & (0.136) & (0.149) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.221$^{***}$ & 0.051 & $-$0.278$^{***}$ \\ 
+  &  &  &  & (0.066) & (0.089) & (0.067) \\ 
+  NGO Law * DOD &  &  &  & $-$0.257$^{***}$ & $-$0.306$^{***}$ & $-$0.192$^{*}$ \\ 
+  &  &  &  & (0.090) & (0.108) & (0.101) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. Dyad FEs & NA & NA & NA & 1036 & 1036 & 1036 \\ 
+No. Donor FEs & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 11,856 & 8,377 & 11,232 & 11,252 & 8,061 & 10,618 \\ 
+R$^{2}$ & 0.274 & 0.271 & 0.273 & 0.796 & 0.685 & 0.780 \\ 
+Adjusted R$^{2}$ & 0.272 & 0.268 & 0.271 & 0.775 & 0.641 & 0.756 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:21
+\begin{table}[!htbp] \centering 
+  \caption{IHS-transformed Outcomes} 
+  \label{tab:ihs} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid (ihs) & Democracy Aid (ihs) & Economic Aid (ihs) & Total Aid (ihs) & Democracy Aid (ihs) & Economic Aid (ihs) \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.078 & $-$0.138 & 0.012 & 0.330$^{*}$ & 0.320 & 0.233 \\ 
+  & (0.397) & (0.571) & (0.465) & (0.171) & (0.235) & (0.215) \\ 
+  DO Relationship (DOR) & 0.053 & 1.978$^{***}$ & $-$0.754$^{**}$ &  &  &  \\ 
+  & (0.238) & (0.344) & (0.296) &  &  &  \\ 
+  NGO Law * DOR & $-$0.422 & $-$1.098$^{***}$ & $-$0.020 &  &  &  \\ 
+  & (0.268) & (0.287) & (0.292) &  &  &  \\ 
+  DO Donor (DOD) &  &  &  & $-$0.385$^{**}$ & 0.529$^{**}$ & $-$0.610$^{***}$ \\ 
+  &  &  &  & (0.165) & (0.207) & (0.192) \\ 
+  NGO Law * DOD &  &  &  & $-$0.801$^{***}$ & $-$1.565$^{***}$ & $-$0.502$^{*}$ \\ 
+  &  &  &  & (0.194) & (0.235) & (0.253) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 1045 & 1045 & 1045 \\ 
+No. of Donor FE & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 12,785 & 12,785 & 12,785 & 12,312 & 12,312 & 12,312 \\ 
+R$^{2}$ & 0.172 & 0.200 & 0.198 & 0.699 & 0.615 & 0.700 \\ 
+Adjusted R$^{2}$ & 0.170 & 0.198 & 0.195 & 0.671 & 0.578 & 0.672 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+GSC results not found at data/gsc_results.Rdata; skipping Figures 4, 5, A2 and GSC tables.
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:22
+\begin{table}[!htbp] \centering 
+  \caption{Controlling for Democratic Backsliding} 
+  \label{tab:dem_bck} 
+\scriptsize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & Total Aid & Democracy Aid & Economic Aid & Total Aid & Democracy Aid & Economic Aid \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & 0.381 & 0.264 & 0.362 & 0.323$^{*}$ & 0.338 & 0.202 \\ 
+  & (0.343) & (0.484) & (0.402) & (0.163) & (0.231) & (0.203) \\ 
+  DO Relationship & 0.056 & 1.910$^{***}$ & $-$0.724$^{***}$ &  &  &  \\ 
+  & (0.228) & (0.329) & (0.280) &  &  &  \\ 
+  DO Donor &  &  &  & $-$0.382$^{**}$ & 0.506$^{**}$ & $-$0.598$^{***}$ \\ 
+  &  &  &  & (0.158) & (0.199) & (0.183) \\ 
+  Clean Elections & $-$1.509 & $-$0.883 & $-$1.582 & $-$0.686 & $-$0.049 & $-$0.105 \\ 
+  & (1.318) & (1.586) & (1.466) & (1.111) & (1.120) & (1.286) \\ 
+  Freedom of Expression & 5.888$^{***}$ & 7.154$^{***}$ & 6.870$^{***}$ & 2.315 & 4.507$^{**}$ & 0.820 \\ 
+  & (1.545) & (1.653) & (1.909) & (1.990) & (2.115) & (1.963) \\ 
+  Media Harassment & $-$0.850$^{*}$ & $-$1.148$^{**}$ & $-$1.072$^{*}$ & 0.125 & $-$0.013 & 0.185 \\ 
+  & (0.485) & (0.472) & (0.588) & (0.202) & (0.277) & (0.241) \\ 
+  Attacks on Journalists & 0.557$^{***}$ & 0.706$^{***}$ & 0.564$^{**}$ & 0.142$^{***}$ & 0.182$^{**}$ & 0.191$^{**}$ \\ 
+  & (0.188) & (0.216) & (0.219) & (0.049) & (0.075) & (0.072) \\ 
+  Opposition Seat Share & $-$0.178 & $-$0.773 & $-$0.052 & 0.401 & $-$0.602 & 0.647 \\ 
+  & (0.945) & (1.059) & (1.112) & (0.365) & (0.545) & (0.464) \\ 
+  NGO Law * DOR & $-$0.400 & $-$1.050$^{***}$ & $-$0.010 &  &  &  \\ 
+  & (0.259) & (0.275) & (0.283) &  &  &  \\ 
+  NGO Law * DOD &  &  &  & $-$0.766$^{***}$ & $-$1.489$^{***}$ & $-$0.480$^{*}$ \\ 
+  &  &  &  & (0.186) & (0.225) & (0.242) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & $\times$ & $\times$ & $\times$ & \checkmark & \checkmark & \checkmark \\ 
+Donor FEs & \checkmark & \checkmark & \checkmark & $\times$ & $\times$ & $\times$ \\ 
+No. of Dyad FE & NA & NA & NA & 1045 & 1045 & 1045 \\ 
+No. of Donor FE & 19 & 19 & 19 & NA & NA & NA \\ 
+Observations & 12,766 & 12,764 & 12,765 & 12,293 & 12,291 & 12,292 \\ 
+R$^{2}$ & 0.217 & 0.232 & 0.238 & 0.709 & 0.624 & 0.708 \\ 
+Adjusted R$^{2}$ & 0.215 & 0.229 & 0.235 & 0.681 & 0.589 & 0.680 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+null device 
+          1 
+Warning message:
+There were 4 warnings in `mutate()`.
+The first warning was:
+i In argument: `across(...)`.
+Caused by warning in `log()`:
+! NaNs produced
+i Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings. 
+
+% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+% Date and time: Mon, Oct 26, 2026 - 17:10:23
+\begin{table}[!htbp] \centering 
+  \caption{Effect of NGO Laws on Democracy By Channel} 
+  \label{} 
+\scriptsize 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{8}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-9} 
+\\[-1.8ex] & NGOs & Bypass & Recipient Gov't & Donor Gov't & NGOs & Bypass & Recipient Gov't & Donor Gov't \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8)\\ 
+\hline \\[-1.8ex] 
+ NGO Law Passage & $-$1.099$^{***}$ & $-$1.390$^{***}$ & 0.299 & $-$0.837$^{**}$ & 0.033 & 0.004 & 0.288$^{**}$ & 0.235 \\ 
+  & (0.373) & (0.412) & (0.255) & (0.333) & (0.193) & (0.317) & (0.124) & (0.171) \\ 
+ \hline \\[-1.8ex] 
+Year FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+Dyad FEs & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ 
+No. Dyad FEs & 246 & 246 & 246 & 246 & 674 & 674 & 674 & 674 \\ 
+Observations & 2,454 & 2,453 & 2,452 & 2,453 & 6,725 & 6,726 & 6,725 & 6,726 \\ 
+R$^{2}$ & 0.584 & 0.563 & 0.433 & 0.552 & 0.660 & 0.553 & 0.548 & 0.570 \\ 
+Adjusted R$^{2}$ & 0.536 & 0.512 & 0.368 & 0.500 & 0.621 & 0.503 & 0.497 & 0.521 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{8}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
+Warning messages:
+1: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+i Please use the `linewidth` argument instead. 
+2: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+i Please use `linewidth` instead. 
+3: `position_dodge()` requires non-overlapping x intervals 
+null device 
+          1 
